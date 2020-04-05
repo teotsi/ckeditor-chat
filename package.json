@@ -1,0 +1,25 @@
+{
+  "name": "ckeditor-chat",
+  "version": "1.0.0",
+  "description": "ckeditor chat plugin",
+  "main": "chat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teotsi/ckeditor-chat.git"
+  },
+  "keywords": [
+    "chat",
+    "plugin",
+    "ckeditor",
+    "ckeditor5"
+  ],
+  "author": "teotsi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teotsi/ckeditor-chat/issues"
+  },
+  "homepage": "https://github.com/teotsi/ckeditor-chat#readme"
+}
