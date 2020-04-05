@@ -19,14 +19,33 @@ export default class ChatEditing extends Plugin {
             allowWhere: '$block'
         } );
 
-        schema.register( 'chatMessage', {
+        schema.register( 'chatMessageContainer', {
             // Cannot be split or left by the caret.
             isLimit: true,
 
             allowIn: 'chat',
 
             // Allow content which is allowed in blocks (i.e. text with attributes).
+            allowContentOf: '$root'
+        } );
+
+        schema.register( 'chatMessage', {
+            // Cannot be split or left by the caret.
+            isLimit: true,
+
+            allowIn: 'chatMessageContainer',
+
+            // Allow content which is allowed in blocks (i.e. text with attributes).
             allowContentOf: '$block'
+        } );
+        schema.register( 'chatMessageFiller', {
+            // Cannot be split or left by the caret.
+            isLimit: true,
+
+            allowIn: 'chatMessageContainer',
+
+            // Allow content which is allowed in blocks (i.e. text with attributes).
+            allowContentOf: ''
         } );
 
         schema.register( 'chatInfo', {
@@ -36,7 +55,7 @@ export default class ChatEditing extends Plugin {
             allowIn: 'chatMessage',
 
             // Allow content which is allowed in the root (e.g. paragraphs).
-            allowContentOf: '$root'
+            allowContentOf: '$block'
         } );
     }
 
@@ -52,10 +71,25 @@ export default class ChatEditing extends Plugin {
         } );
 
         conversion.elementToElement( {
+            model: 'chatMessageContainer',
+            view: {
+                name: 'div',
+                classes: 'chat-message-container'
+            }
+        } );
+
+        conversion.elementToElement( {
             model: 'chatMessage',
             view: {
                 name: 'div',
                 classes: 'chat-message'
+            }
+        } );
+        conversion.elementToElement( {
+            model: 'chatMessage',
+            view: {
+                name: 'div',
+                classes: 'chat-message-filler'
             }
         } );
 
