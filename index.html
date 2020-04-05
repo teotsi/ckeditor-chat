@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CKEditor 5 Framework – Implementing a simple widget</title>
+    <style>
+        .chat-container {
+                height: 500px;
+                width: 300px;
+                background: cornflowerblue;
+                border: solid 1px hsl(0, 0%, 77%);
+                border-radius: 10px;
+            }
+
+            .chat-message{
+                float: left;
+                display: block;
+                max-width: 15rem;
+                background-color: aqua;
+                border-radius: 20px;
+                text-align: center;
+                margin-left:auto;
+            }
+
+            .chat-info{
+                color:azure;
+            }
+            
+    </style>
+    </head>
+    <body>
+        <div id="editor">
+            <p>This is a simple chat.</p>
+
+            <div class="chat-container">
+                     <div class="chat-message">
+                    <p class="chat-info">This is text!!</p>
+                </div>
+                <div class="chat-message">
+                    <p class="chat-info">This is a reply text!!</p>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="dist/bundle.js"></script>
+    </body>
+</html>
