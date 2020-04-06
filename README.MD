@@ -1,3 +1,11 @@
-##CHAT FOR CKEDITOR5
+## CHAT FOR CKEDITOR5
 
-I will update this once I have an idea of what the hell I am doing
+Currently under development.
+
+It offers a Chat container where ChatMessageContainers can be added. Comes with a button for your toolbar as well!
+
+#### Installation
+`npm install --save ckeditor-chat`
+
+
+More to come!

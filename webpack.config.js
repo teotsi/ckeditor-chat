@@ -42,7 +42,9 @@ module.exports = {
 
     // Useful for debugging.
     devtool: 'source-map',
-
+    devServer:{
+        contentBase:'./'
+    },
     // By default webpack logs warnings if the bundle is bigger than 200kb.
     performance: { hints: false }
 };
