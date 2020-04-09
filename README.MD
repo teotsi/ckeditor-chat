@@ -1,3 +1,4 @@
+![npm](https://img.shields.io/npm/v/ckeditor-chat)
 ## CHAT FOR CKEDITOR5
 
 Currently under development. Dependencies are messy and will stay that way until the first actual release.
