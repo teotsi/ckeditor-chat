@@ -14,7 +14,8 @@ export default class InsertChatMessageCommand extends Command {
         const selection = model.document.selection;
         const allowedIn = model.schema.findAllowedParent( selection.getFirstPosition(), 'chatMessageContainer' );
 
-        this.isEnabled =  true;
+        this.isEnabled = allowedIn !== null;
+        
     }
 }
 
@@ -27,6 +28,6 @@ function createChatMessage( writer ) {
     // There must be at least one paragraph for the description to be editable.
     // See https://github.com/ckeditor/ckeditor5/issues/1464.
     writer.appendElement( 'paragraph', chatInfo );
-
+    console.log(chatMessageContainer);
     return chatMessageContainer;
 }

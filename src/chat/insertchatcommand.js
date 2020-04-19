@@ -15,6 +15,9 @@ export default class InsertChatCommand extends Command {
         const allowedIn = model.schema.findAllowedParent( selection.getFirstPosition(), 'chat' );
 
         this.isEnabled = allowedIn !== null;
+        if(this.isEnabled){
+            console.log(selection.getFirstPosition())
+        }
     }
 }
 

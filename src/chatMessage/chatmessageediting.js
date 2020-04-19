@@ -1,40 +1,25 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { toWidgetEditable } from '@ckeditor/ckeditor5-widget/src/utils';
+import InsertChatMessageCommand from './insertchatmessagecommand';
 
-import { toWidget, toWidgetEditable } from '@ckeditor/ckeditor5-widget/src/utils';
-import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 
+export default class ChatMessageEditing extends Plugin{
 
-import InsertChatCommand from './insertchatcommand';                 // ADDED
-import InsertChatMessageCommand from './insertchatmessagecommand';                
+    static get pluginName() {
+		return 'ChatMessageEditing';
+	}
 
-export default class ChatEditing extends Plugin {
-    static get requires() {                                                    // ADDED
-        return [ Widget ];
+    init(){
+
+        console.log( 'ChatMessageEditing#init() got called' );
+        this._defineSchema();
+
+        this._defineConverters();
+
+        this.editor.commands.add('insertChatMessage', new InsertChatMessageCommand( this.editor ) );
     }
-
-    init() {
-
-        console.log( 'ChatEditing#init() got called' );
-        this._defineSchema();          
-
-        this._defineConverters();                                              // ADDED
-
-        this.editor.commands.add( 'insertChat', new InsertChatCommand( this.editor ) );
-        this.editor.commands.add( 'insertChatMessage', new InsertChatMessageCommand( this.editor ) );
-
-
-    }
-    _defineSchema() {                                                          // ADDED
+    _defineSchema(){
         const schema = this.editor.model.schema;
-
-        schema.register( 'chat', {
-            // Behaves like a self-contained object (e.g. an image).
-            isObject: true,
-
-            // Allow in places where other blocks are allowed (e.g. directly in the root).
-            allowWhere: '$block'
-        } );
-
         schema.register( 'chatMessageContainer', {
             // Cannot be split or left by the caret.
             isObject: true,
@@ -55,23 +40,6 @@ export default class ChatEditing extends Plugin {
             allowContentOf: '$block'
         } );
 
-        schema.register( 'chatInfo', {
-            // Cannot be split or left by the caret.
-            isLimit: false,
-
-            allowIn: 'chatMessage',
-
-            // Allow content which is allowed in the root (e.g. paragraphs).
-            allowContentOf: '$block'
-        } );
-
-        schema.addChildCheck( ( context, childDefinition ) => {
-            if ( (context.endsWith( 'chat' ) || context.endsWith( 'chatMessage' ) || 
-            context.endsWith('chatMessageContainer')|| context.endsWith('chatInfo')) && childDefinition.name == 'chat' ) {
-                return false;
-            }
-        } );
-
         schema.addChildCheck( ( context, childDefinition ) => {
             if (!context.endsWith('chat')&& childDefinition.name == 'chatMessageContainer' ) {
                 return false;
@@ -79,36 +47,8 @@ export default class ChatEditing extends Plugin {
         } );
     }
 
-    _defineConverters() {                                                      // ADDED
+    _defineConverters(){
         const conversion = this.editor.conversion;
-
-        conversion.for('upcast').elementToElement( {
-
-            model: 'chat',
-            view: {
-                name: 'div',
-                classes: 'chat-container'
-            }
-        } );
-
-        conversion.for( 'dataDowncast' ).elementToElement( {
-            model: 'chat',
-            view: {
-                name: 'div',
-                classes: 'chat-container'
-            }
-        } );
-
-        console.log( 'Chat about to widgetize' );
-
-        conversion.for( 'editingDowncast' ).elementToElement( {
-            model: 'chat',
-            view: ( modelElement, viewWriter ) => {
-                const div = viewWriter.createContainerElement( 'div', { class: 'chat-container' } );
-                return toWidget( div, viewWriter, { label: 'Chat widget' } );
-            }
-        } );
-
 
         conversion.for('upcast').elementToElement( {
             model: 'chatMessageContainer',
@@ -134,7 +74,7 @@ export default class ChatEditing extends Plugin {
             view: ( modelElement, viewWriter ) => {
                 // Note: You use a more specialized createEditableElement() method here.
                 const div = viewWriter.createEditableElement( 'div', { class: 'chat-message-container' } );
-                return toWidget( div, viewWriter, { label: 'Chat message container' } );
+                return toWidgetEditable( div, viewWriter, { label: 'Chat message container' } );
             }
         } );
 
@@ -192,4 +132,4 @@ export default class ChatEditing extends Plugin {
         } );
 
     }
-}
+} 

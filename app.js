@@ -5,12 +5,14 @@ import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
-import Chat from './chat/chat';
+import Chat from './src/chat';
+import ChatMessage from './src/chatmessage';
+
 import CKEditorInspector from '@ckeditor/ckeditor5-inspector';                 // ADDED
 
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
-        plugins: [ Essentials, Paragraph, Heading, List, Bold, Italic, Chat ],
+        plugins: [ Essentials, Paragraph, Heading, List, Bold, Italic, Chat, ChatMessage ],
         toolbar: [ 'heading', 'bold', 'italic', 'numberedList', 'bulletedList', 'chat' ]
     } )
     .then( editor => {
